@@ -79,7 +79,7 @@ class CustomerAdmin extends AbstractAdmin
 
         $menu->addChild(
             'customer.sidemenu.link_address_list',
-            $admin->generateMenuUrl('admin.address.list', ['id' => $id])
+            $admin->generateMenuUrl('admin.customer|admin.address.list', ['id' => $id])
         );
     }
 	
