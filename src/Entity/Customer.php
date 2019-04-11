@@ -31,6 +31,12 @@ class Customer
      * @var string
      */
     protected $name;
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="App\Entity\Address")
+	 * @var $customer
+	 */
+	protected $address;
     
 	/**
 	 * @return mixed
@@ -58,5 +64,19 @@ class Customer
 	 */
 	public function setName(string $name): void {
 		$this->name = $name;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getAddress() {
+		return $this->address;
+	}
+	
+	/**
+	 * @param mixed $customer
+	 */
+	public function setAddress($address): void {
+		$this->address = $address;
 	}
 }

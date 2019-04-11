@@ -19,6 +19,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelListType;
 
 class CustomerAdmin extends AbstractAdmin
 {
@@ -41,6 +42,12 @@ class CustomerAdmin extends AbstractAdmin
                     'class' => 'col-md-7',
                 ])
                 ->add('name')
+	        ->add('address', ModelListType::class, [
+		        'btn_add' => false,
+		        'btn_delete' => false,
+	        ], [
+		              'admin_code' => 'admin.address',
+	              ])
             ->end()
         ;
     }
@@ -74,10 +81,7 @@ class CustomerAdmin extends AbstractAdmin
             'customer.sidemenu.link_address_list',
             $admin->generateMenuUrl('admin.address.list', ['id' => $id])
         );
-	
-	    $menu->addChild(
-		    'customer.sidemenu.link_basket_create',
-		    $admin->generateMenuUrl('admin.basket.create', ['id' => $id])
-	    );
     }
+	
+	
 }
