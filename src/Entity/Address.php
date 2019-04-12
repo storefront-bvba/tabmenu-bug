@@ -32,54 +32,52 @@ class Address
      * @var string
      */
     protected $name;
-	
+
 	/**
-	 * @ORM\ManyToOne(targetEntity="App\Entity\Customer")
+	 * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="addresses")
 	 * @var $customer
 	 */
     protected $customer;
-	
+
 	/**
 	 * @return mixed
 	 */
 	public function getId() {
 		return $this->id;
 	}
-	
+
 	/**
 	 * @param mixed $id
 	 */
 	public function setId($id): void {
 		$this->id = $id;
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	public function getName(): ?string {
 		return $this->name;
 	}
-	
+
 	/**
 	 * @param string $name
 	 */
 	public function setName(string $name): void {
 		$this->name = $name;
 	}
-	
+
 	/**
 	 * @return mixed
 	 */
 	public function getCustomer() {
 		return $this->customer;
 	}
-	
+
 	/**
 	 * @param mixed $customer
 	 */
 	public function setCustomer($customer): void {
 		$this->customer = $customer;
 	}
-	
-	
 }

@@ -12,6 +12,7 @@ declare(strict_types=1);
  */
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,52 +32,56 @@ class Customer
      * @var string
      */
     protected $name;
-	
+
 	/**
-	 * @ORM\ManyToOne(targetEntity="App\Entity\Address")
+	 * @ORM\OneToMany(targetEntity="App\Entity\Address", mappedBy="customer", cascade={"persist"})
 	 * @var $customer
 	 */
-	protected $address;
-    
-	/**
+	protected $addresses;
+
+	public function __construct()
+    {
+        $this->addresses = new ArrayCollection();
+    }
+
+    /**
 	 * @return mixed
 	 */
 	public function getId() {
 		return $this->id;
 	}
-	
+
 	/**
 	 * @param mixed $id
 	 */
 	public function setId($id): void {
 		$this->id = $id;
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	public function getName(): ?string {
 		return $this->name;
 	}
-	
+
 	/**
 	 * @param string $name
 	 */
 	public function setName(string $name): void {
 		$this->name = $name;
 	}
-	
-	/**
-	 * @return mixed
-	 */
-	public function getAddress() {
-		return $this->address;
+
+	public function addAddress(Address $address) {
+	    $address->setCustomer($this);
+		$this->addresses->add($address);
 	}
-	
-	/**
-	 * @param mixed $customer
-	 */
-	public function setAddress($address): void {
-		$this->address = $address;
+
+	public function removeAddress(Address $address) {
+		$this->addresses->remove($address);
+	}
+
+	public function getAddresses() {
+		return $this->addresses;
 	}
 }

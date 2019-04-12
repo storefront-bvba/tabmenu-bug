@@ -19,13 +19,13 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\ModelListType;
+use Sonata\Form\Type\CollectionType;
 
 class CustomerAdmin extends AbstractAdmin
 {
 	protected $baseRouteName = 'customer';
 	protected $baseRoutePattern = 'customer';
-	
+
     public function configure(): void
     {
         $this->setTranslationDomain('SonataCustomerBundle');
@@ -42,16 +42,17 @@ class CustomerAdmin extends AbstractAdmin
                     'class' => 'col-md-7',
                 ])
                 ->add('name')
-	        ->add('address', ModelListType::class, [
-		        'btn_add' => false,
-		        'btn_delete' => false,
-	        ], [
-		              'admin_code' => 'admin.address',
-	              ])
+                ->add('addresses', CollectionType::class, [
+                    'required' => false,
+                    'by_reference' => false,
+                ], [
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                ])
             ->end()
         ;
     }
-	
+
 	protected function configureDatagridFilters(DatagridMapper $datagridMapper)
 	{
 		$datagridMapper->add('name');
@@ -82,6 +83,4 @@ class CustomerAdmin extends AbstractAdmin
             $admin->generateMenuUrl('admin.customer|admin.address.list', ['id' => $id])
         );
     }
-	
-	
 }
